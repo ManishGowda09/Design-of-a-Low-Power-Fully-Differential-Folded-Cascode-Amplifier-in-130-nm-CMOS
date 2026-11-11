@@ -1,0 +1,209 @@
+** sch_path: /foss/designs/manish/diff_folded_cascade.sch
+**.subckt diff_folded_cascade Vout2 vin1 vin2 Vt Vout1 Vb4 Vb3 Vb2 Vb1 Vx
+*.opin Vout2
+*.ipin vin1
+*.ipin vin2
+*.ipin Vt
+*.opin Vout1
+*.ipin Vb4
+*.ipin Vb3
+*.ipin Vb2
+*.ipin Vb1
+*.ipin Vx
+Vdd net2 0 1.8
+C1 Vout2 0 1p
+XM2 Vx vin1 net1 net2 sky130_fd_pr__pfet_01v8_lvt L=10 W=5.55 nf=1 ad=1.6095 as=1.6095 pd=11.68 ps=11.68 nrd=0.0522522522522523
++ nrs=0.0522522522522523 sa=0 sb=0 sd=0 mult=10 m=10
+XM3 net5 vin2 net1 net2 sky130_fd_pr__pfet_01v8_lvt L=10 W=5.55 nf=1 ad=1.6095 as=1.6095 pd=11.68 ps=11.68 nrd=0.0522522522522523
++ nrs=0.0522522522522523 sa=0 sb=0 sd=0 mult=10 m=10
+vin1 vin1 0 sin(0.89 10u 1k) AC 0.5
+vin2 vin2 0 sin(0.89 -10u 1k) AC -0.5
+XM1 net1 Vt net2 net2 sky130_fd_pr__pfet_01v8_lvt L=10 W=10 nf=1 ad=2.9 as=2.9 pd=20.58 ps=20.58 nrd=0.029 nrs=0.029 sa=0 sb=0
++ sd=0 mult=11 m=11
+XM4 net3 Vb4 net2 net2 sky130_fd_pr__pfet_01v8_lvt L=10 W=5.55 nf=1 ad=1.6095 as=1.6095 pd=11.68 ps=11.68 nrd=0.0522522522522523
++ nrs=0.0522522522522523 sa=0 sb=0 sd=0 mult=10 m=10
+XM8 Vout1 Vb2 Vx 0 sky130_fd_pr__nfet_01v8 L=5 W=1.5 nf=1 ad=0.435 as=0.435 pd=3.58 ps=3.58 nrd=0.193333333333333
++ nrs=0.193333333333333 sa=0 sb=0 sd=0 mult=5 m=5
+XM9 Vout2 Vb2 net5 0 sky130_fd_pr__nfet_01v8 L=5 W=1.5 nf=1 ad=0.435 as=0.435 pd=3.58 ps=3.58 nrd=0.193333333333333
++ nrs=0.193333333333333 sa=0 sb=0 sd=0 mult=5 m=5
+XM10 Vx Vb1 0 0 sky130_fd_pr__nfet_01v8 L=10 W=30 nf=1 ad=8.7 as=8.7 pd=60.58 ps=60.58 nrd=0.00966666666666667
++ nrs=0.00966666666666667 sa=0 sb=0 sd=0 mult=1
+XM11 net5 Vb1 0 0 sky130_fd_pr__nfet_01v8 L=10 W=30 nf=1 ad=8.7 as=8.7 pd=60.58 ps=60.58 nrd=0.00966666666666667
++ nrs=0.00966666666666667 sa=0 sb=0 sd=0 mult=1
+XM5 net4 Vb4 net2 net2 sky130_fd_pr__pfet_01v8_lvt L=10 W=5.55 nf=1 ad=1.6095 as=1.6095 pd=11.68 ps=11.68 nrd=0.0522522522522523
++ nrs=0.0522522522522523 sa=0 sb=0 sd=0 mult=10 m=10
+XM6 Vout1 Vb3 net3 net2 sky130_fd_pr__pfet_01v8_lvt L=10 W=5.55 nf=1 ad=1.6095 as=1.6095 pd=11.68 ps=11.68 nrd=0.0522522522522523
++ nrs=0.0522522522522523 sa=0 sb=0 sd=0 mult=10 m=10
+XM7 Vout2 Vb3 net4 net2 sky130_fd_pr__pfet_01v8_lvt L=10 W=5.55 nf=1 ad=1.6095 as=1.6095 pd=11.68 ps=11.68 nrd=0.0522522522522523
++ nrs=0.0522522522522523 sa=0 sb=0 sd=0 mult=10 m=10
+Vt Vt 0 1.125V
+C2 Vout1 0 1p
+Vb4 Vb4 0 1.1325V
+Vb3 Vb3 0 0.775V
+Vb2 Vb2 0 1.05V
+Vb1 Vb1 0 0.69V
+**** begin user architecture code
+
+
+.lib /foss/pdks/ciel/sky130/versions/b344c97eacc2aaf8e14ae7e43e2e9dc0871de2c0/sky130A/libs.tech/ngspice/sky130.lib.spice tt
+
+.control
+  option temp = 27
+  alter vdd dc = 1.8
+  set color0=white
+  set color1=black
+  set color2=red
+  set color3=blue
+
+
+  op
+  echo --- Tail Transistor M1 ---
+  print @m.xm1.msky130_fd_pr__pfet_01v8_lvt[id]
+  print @m.xm1.msky130_fd_pr__pfet_01v8_lvt[vds]
+  print @m.xm1.msky130_fd_pr__pfet_01v8_lvt[vdsat]
+  print @m.xm1.msky130_fd_pr__pfet_01v8_lvt[vgs]
+  print @m.xm1.msky130_fd_pr__pfet_01v8_lvt[vth]
+  print @m.xm1.msky130_fd_pr__pfet_01v8_lvt[gm]
+  print @m.xm1.msky130_fd_pr__pfet_01v8_lvt[gds]
+
+  echo --- Differential Pair M2 ---
+  print @m.xm2.msky130_fd_pr__pfet_01v8_lvt[id]
+  print @m.xm2.msky130_fd_pr__pfet_01v8_lvt[vds]
+  print @m.xm2.msky130_fd_pr__pfet_01v8_lvt[vdsat]
+  print @m.xm2.msky130_fd_pr__pfet_01v8_lvt[vgs]
+  print @m.xm2.msky130_fd_pr__pfet_01v8_lvt[vth]
+  print @m.xm2.msky130_fd_pr__pfet_01v8_lvt[gm]
+  print @m.xm2.msky130_fd_pr__pfet_01v8_lvt[gds]
+
+  echo --- Differential Pair M3 ---
+  print @m.xm3.msky130_fd_pr__pfet_01v8_lvt[id]
+  print @m.xm3.msky130_fd_pr__pfet_01v8_lvt[vds]
+  print @m.xm3.msky130_fd_pr__pfet_01v8_lvt[vdsat]
+  print @m.xm3.msky130_fd_pr__pfet_01v8_lvt[vgs]
+  print @m.xm3.msky130_fd_pr__pfet_01v8_lvt[vth]
+  print @m.xm3.msky130_fd_pr__pfet_01v8_lvt[gm]
+  print @m.xm3.msky130_fd_pr__pfet_01v8_lvt[gds]
+
+  echo --- Top cascade M4 ---
+  print @m.xm4.msky130_fd_pr__pfet_01v8_lvt[id]
+  print @m.xm4.msky130_fd_pr__pfet_01v8_lvt[vds]
+  print @m.xm4.msky130_fd_pr__pfet_01v8_lvt[vdsat]
+  print @m.xm4.msky130_fd_pr__pfet_01v8_lvt[vgs]
+  print @m.xm4.msky130_fd_pr__pfet_01v8_lvt[vth]
+  print @m.xm4.msky130_fd_pr__pfet_01v8_lvt[gm]
+  print @m.xm4.msky130_fd_pr__pfet_01v8_lvt[gds]
+
+  echo --- Top cascade M5 ---
+  print @m.xm5.msky130_fd_pr__pfet_01v8_lvt[id]
+  print @m.xm5.msky130_fd_pr__pfet_01v8_lvt[vds]
+  print @m.xm5.msky130_fd_pr__pfet_01v8_lvt[vdsat]
+  print @m.xm5.msky130_fd_pr__pfet_01v8_lvt[vgs]
+  print @m.xm5.msky130_fd_pr__pfet_01v8_lvt[vth]
+  print @m.xm5.msky130_fd_pr__pfet_01v8_lvt[gm]
+  print @m.xm5.msky130_fd_pr__pfet_01v8_lvt[gds]
+
+  echo --- Cascode M6 ---
+  print @m.xm6.msky130_fd_pr__pfet_01v8_lvt[id]
+  print @m.xm6.msky130_fd_pr__pfet_01v8_lvt[vds]
+  print @m.xm6.msky130_fd_pr__pfet_01v8_lvt[vdsat]
+  print @m.xm6.msky130_fd_pr__pfet_01v8_lvt[vgs]
+  print @m.xm6.msky130_fd_pr__pfet_01v8_lvt[vth]
+  print @m.xm6.msky130_fd_pr__pfet_01v8_lvt[gm]
+  print @m.xm6.msky130_fd_pr__pfet_01v8_lvt[gds]
+
+  echo --- Cascode M7 ---
+  print @m.xm7.msky130_fd_pr__pfet_01v8_lvt[id]
+  print @m.xm7.msky130_fd_pr__pfet_01v8_lvt[vds]
+  print @m.xm7.msky130_fd_pr__pfet_01v8_lvt[vdsat]
+  print @m.xm7.msky130_fd_pr__pfet_01v8_lvt[vgs]
+  print @m.xm7.msky130_fd_pr__pfet_01v8_lvt[vth]
+  print @m.xm7.msky130_fd_pr__pfet_01v8_lvt[gm]
+  print @m.xm7.msky130_fd_pr__pfet_01v8_lvt[gds]
+
+  echo --- Bottom cascade M8 ---
+  print @m.xm8.msky130_fd_pr__nfet_01v8[id]
+  print @m.xm8.msky130_fd_pr__nfet_01v8[vds]
+  print @m.xm8.msky130_fd_pr__nfet_01v8[vdsat]
+  print @m.xm8.msky130_fd_pr__nfet_01v8[vgs]
+  print @m.xm8.msky130_fd_pr__nfet_01v8[vth]
+  print @m.xm8.msky130_fd_pr__nfet_01v8[gm]
+  print @m.xm8.msky130_fd_pr__nfet_01v8[gds]
+
+  echo --- Bottom cascade M9 ---
+  print @m.xm9.msky130_fd_pr__nfet_01v8[id]
+  print @m.xm9.msky130_fd_pr__nfet_01v8[vds]
+  print @m.xm9.msky130_fd_pr__nfet_01v8[vdsat]
+  print @m.xm9.msky130_fd_pr__nfet_01v8[vgs]
+  print @m.xm9.msky130_fd_pr__nfet_01v8[vth]
+  print @m.xm9.msky130_fd_pr__nfet_01v8[gm]
+  print @m.xm9.msky130_fd_pr__nfet_01v8[gds]
+
+  echo --- Cascade M10 ---
+  print @m.xm10.msky130_fd_pr__nfet_01v8[id]
+  print @m.xm10.msky130_fd_pr__nfet_01v8[vds]
+  print @m.xm10.msky130_fd_pr__nfet_01v8[vdsat]
+  print @m.xm10.msky130_fd_pr__nfet_01v8[vgs]
+  print @m.xm10.msky130_fd_pr__nfet_01v8[vth]
+  print @m.xm10.msky130_fd_pr__nfet_01v8[gm]
+  print @m.xm10.msky130_fd_pr__nfet_01v8[gds]
+
+  echo --- Cascade M11 ---
+  print @m.xm11.msky130_fd_pr__nfet_01v8[id]
+  print @m.xm11.msky130_fd_pr__nfet_01v8[vds]
+  print @m.xm11.msky130_fd_pr__nfet_01v8[vdsat]
+  print @m.xm11.msky130_fd_pr__nfet_01v8[vgs]
+  print @m.xm11.msky130_fd_pr__nfet_01v8[vth]
+  print @m.xm11.msky130_fd_pr__nfet_01v8[gm]
+  print @m.xm11.msky130_fd_pr__nfet_01v8[gds]
+
+
+* ---------- Power dissipation (DC operating point) ----------
+
+  let i_vdd = -i(vdd)
+  let p_diss = 1.8 * i_vdd
+
+  echo --- * Supply current and Power dissipation * ---
+  print i_vdd p_diss
+
+
+* ---------- Differential gain: vin1 = +0.5, vin2 = -0.5 (Vid = 1 V) ----------
+  ac dec 20 1 10g
+
+* ---------- Common-mode gain: vin1 = vin2 = 1 V AC (Vic = 1 V) ----------
+  alter vin1 acmag = 1
+  alter vin2 acmag = 1
+  ac dec 20 1 10g
+
+* ---------- Gains and CMRR ----------
+  let Ad      = ac1.vout1 - ac1.vout2
+  let Acm     = (ac2.vout1 + ac2.vout2)/2
+  let Ad_dB   = db(Ad)
+  let Acm_dB  = db(Acm)
+  let CMRR_dB = Ad_dB - Acm_dB
+
+  echo --- Gains at 1 Hz (dB) ---
+  print Ad_dB[0] Acm_dB[0] CMRR_dB[0]
+
+  plot Ad_dB Acm_dB CMRR_dB xlog title 'Ad, Acm and CMRR (dB)'
+
+
+* ---------- Transient ----------
+
+  tran 1u 5m
+  plot v(vin1) v(vin2) title 'Input: differential sine (1 kHz)'
+  plot v(vout1) v(vout2) title 'Output'
+
+
+* ---------- DC transfer ----------
+  dc vin2 0 1.8 0.01
+  plot vout1 vout2 title 'DC transfer Characteristic'
+
+
+ write diff_folded_cascade.raw
+
+.endc
+
+
+**** end user architecture code
+**.ends
+.end
