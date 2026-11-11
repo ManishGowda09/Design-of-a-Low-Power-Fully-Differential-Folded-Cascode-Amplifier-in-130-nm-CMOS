@@ -38,22 +38,8 @@ The design was biased by hand with ideal DC sources and verified with `.op`, `.a
 ## How the circuit works
 
 ```
-                         VDD = 1.8 V
-        ┌─────────────┬──────┴──────┬─────────────┐
-        │             │             │             │
-       M4 (Vb4)     M1 (Vt)       M5 (Vb4)        │
-        │             │             │             │
-      net3        ┌───┴───┐       net4             │
-        │         │ net1  │         │              │
-       M6 (Vb3)  M2      M3       M7 (Vb3)         │
-        │       (vin1)  (vin2)      │              │
-      Vout1       │       │       Vout2            │
-        │        Vx      net5       │              │
-       M8 (Vb2)───┘       └────── M9 (Vb2)         │
-        │                           │              │
-        └─ Vx ── M10 (Vb1)   M11 (Vb1) ── net5 ────┘
-                    │           │
-                   GND         GND
+<img width="947" height="846" alt="Screenshot 2026-11-06 171743" src="https://github.com/user-attachments/assets/384cd923-6b5b-4247-b8a8-b63f74bc0c11" />
+
 ```
 
 *(Simplified sketch. The exact connectivity is in the schematic and netlist. M8 joins Vout1 to Vx, and M9 joins Vout2 to net5.)*
@@ -150,19 +136,22 @@ Conditions: VDD = 1.8 V, TT corner, 27 °C, CL = 1 pF on each output.
 
 ### 1. DC transfer characteristic
 
-![DC transfer](images/dc_transfer.png)
+<img width="887" height="681" alt="Screenshot 2026-11-11 101607" src="https://github.com/user-attachments/assets/107cdf24-fddd-4be5-a602-8bd9630305bd" />
+
 
 `vin1` is held at 0.89 V and `vin2` is swept from 0 to 1.8 V. The outputs switch when `vin2` crosses `vin1` (≈ 0.9 V): Vout1 rises and Vout2 falls, which confirms the polarity described above. The outputs saturate near 0.08 V and 1.77 V. Those flat ends are regions where the cascodes have left saturation, so they are not usable linear range. The sweep step is 10 mV, so the transition itself is coarsely resolved.
 
 ### 2. Transient response
 
-![Transient](images/transient.png)
+<img width="1758" height="673" alt="Screenshot 2026-11-11 101700" src="https://github.com/user-attachments/assets/c78488f8-1656-4184-8966-ba8bf641e986" />
+
 
 A 1 kHz differential sine of ±10 µV on each input (20 µV peak differential) gives ±10 mV on each output (20 mV peak differential), a gain of about 1000 V/V. This matches the 60 dB from the AC analysis. The outputs are 180° out of phase and sit on a common mode of ≈ 472 mV. A microvolt-level input is used on purpose, because at 1000 V/V a millivolt-level input would clip the outputs.
 
 ### 3. AC response: Ad, Acm and CMRR
 
-![AC response](images/ac_response.png)
+<img width="887" height="677" alt="ac_response" src="https://github.com/user-attachments/assets/34463524-9621-4c16-9a79-cd4d955da59f" />
+
 
 - **Ad (red):** flat at 60 dB, then a single-pole roll-off to about 10 MHz at 0 dB. At very high frequency it flattens near −14 dB because of capacitive feedthrough.
 - **Acm (blue):** flat at 36.5 dB, rolling off along the same pole.
@@ -170,7 +159,7 @@ A 1 kHz differential sine of ±10 µV on each input (20 µV peak differential) g
 
 ### 4. Bias sensitivity: Vout1 vs Vb4
 
-![Vb4 sweep](images/vb4_sweep.png)
+<img width="1917" height="923" alt="vb4_sweep" src="https://github.com/user-attachments/assets/3050d1d3-e7dd-4bb8-8d11-353a368c37a5" />
 
 This sweep shows the main weakness of the open-loop bias. Vout1 swings from about 1.4 V to 0.4 V over roughly **0.2 mV** of Vb4. The circuit has no common-mode feedback, so a tiny mismatch between the PMOS supply current and the NMOS sink current pushes the outputs toward a rail. The kinks in the curve mark where the cascodes leave saturation. The chosen Vb4 = 1.1325 V puts every device in saturation, but with Vout1 at the low end of its valid range.
 
@@ -289,17 +278,5 @@ With the limitations above in mind, this topology suits:
 ├── README.md
 ├── diff_folded_cascade.sch      # xschem schematic
 ├── diff_folded_cascade.spice    # netlist and testbench with the .control block
-└── images/
-    ├── dc_transfer.png
-    ├── transient.png
-    ├── ac_response.png
-    └── vb4_sweep.png
+
 ```
-
-## Author
-
-[Your Name]
-
-## License
-
-Add a license of your choice (for example MIT or Apache-2.0). Note that the SKY130 PDK has its own license terms.
