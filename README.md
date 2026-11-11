@@ -37,12 +37,12 @@ The design was biased by hand with ideal DC sources and verified with `.op`, `.a
 
 ## How the circuit works
 
-```
+
 <img width="947" height="846" alt="Screenshot 2026-11-06 171743" src="https://github.com/user-attachments/assets/384cd923-6b5b-4247-b8a8-b63f74bc0c11" />
 
-```
 
-*(Simplified sketch. The exact connectivity is in the schematic and netlist. M8 joins Vout1 to Vx, and M9 joins Vout2 to net5.)*
+
+*(Simplified sketch. The exact connectivity is in the schematic and netlist.)*
 
 **Signal path**
 
