@@ -121,6 +121,9 @@ Conditions: VDD = 1.8 V, TT corner, 27 °C, CL = 1 pF on each output.
 
 > **Note on CMRR:** Acm here is the common-mode-to-common-mode gain, so CMRR = Ad / Acm. It is not the common-mode-to-differential conversion that a mismatch analysis would give.
 
+### Schematic
+<img width="3072" height="1280" alt="diff_folded_cascade2" src="https://github.com/user-attachments/assets/c8caaa86-b2a5-475d-98fa-4dca2dde655c" />
+
 ### DC operating point
 
 | Device | Id | Vds | Vdsat | Vds − Vdsat | Region |
